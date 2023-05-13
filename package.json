@@ -1,6 +1,10 @@
 {
   "name": "sample-todomvc",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lean-ng/sample-todomvc.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -27,12 +31,14 @@
     "@angular/cli": "~16.0.1",
     "@angular/compiler-cli": "^16.0.0",
     "@types/jasmine": "~4.3.0",
+    "changelogen": "^0.5.3",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "prettier": "^2.8.8",
     "typescript": "~5.0.2"
   }
 }
