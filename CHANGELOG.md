@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.0.2
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.0.1...v0.0.2)
+
+
+### 🚀 Enhancements
+
+  - Personalize template ([baf7afd](https://github.com/lean-ng/sample-todomvc/commit/baf7afd))
+
+### 🏡 Chore
+
+  - Add app spec document ([d06373f](https://github.com/lean-ng/sample-todomvc/commit/d06373f))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.0.1
 
 
