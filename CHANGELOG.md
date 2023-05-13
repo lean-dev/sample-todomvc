@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.0.2...v0.1.0)
+
+
+### 🚀 Enhancements
+
+  - Hide main and toolbar whether there are no todos ([be3022d](https://github.com/lean-ng/sample-todomvc/commit/be3022d))
+
+### 🏡 Chore
+
+  - Add cypress for e2e testing. ([c5bdd05](https://github.com/lean-ng/sample-todomvc/commit/c5bdd05))
+  - Extract angular components from template ([fa3c1fd](https://github.com/lean-ng/sample-todomvc/commit/fa3c1fd))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.0.2
 
 [compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.0.1...v0.0.2)
