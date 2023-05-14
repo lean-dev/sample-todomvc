@@ -19,14 +19,14 @@ export class StoreService {
   );
 
   // Actions
-  create(title: string) {
+  createTodo(title: string) {
     const todo = { id: this.nextId++, title, completed: false };
     this.todosSource.next([...this.todosSource.value, todo]);
   }
   setTodoCompleted(id: Todo['id'], completed: boolean) {
     this.todosSource.next(this.todosSource.value.map((t) => (t.id !== id ? t : { ...t, completed })));
   }
-  remove(id: Todo['id']) {
+  deleteTodo(id: Todo['id']) {
     this.todosSource.next(this.todosSource.value.filter((t) => t.id !== id));
   }
 }

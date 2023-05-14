@@ -10,6 +10,6 @@ export class TodosShellComponent {
   private storeSvc = inject(StoreService);
 
   handleCreate(title: string) {
-    this.storeSvc.create(title);
+    this.storeSvc.createTodo(title);
   }
 }

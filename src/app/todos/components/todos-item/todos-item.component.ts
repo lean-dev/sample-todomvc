@@ -18,7 +18,7 @@ export class TodosItemComponent {
     this.storeSvc.setTodoCompleted(this.todo.id, !this.todo.completed);
   }
 
-  handleRemove() {
-    this.storeSvc.remove(this.todo.id);
+  handleDestroy() {
+    this.storeSvc.deleteTodo(this.todo.id);
   }
 }
