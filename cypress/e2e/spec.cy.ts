@@ -23,7 +23,7 @@ context('Angular • TodoMVC', () => {
   });
 
   describe('New Todo', () => {
-    it.skip('should focus the input field on page load', () => {
+    it('should focus the input field on page load', () => {
       cy.focused().should('have.class', 'new-todo');
     });
 
@@ -73,7 +73,7 @@ context('Angular • TodoMVC', () => {
       cy.get(selectors.todoItems).should('have.length', 1);
     });
 
-    context.only('Editing', () => {
+    context('Editing', () => {
       beforeEach(() => {
         cy.createTodo(todoFixtures[0]);
         cy.createTodo(todoFixtures[1]).as('todo');
@@ -86,10 +86,10 @@ context('Angular • TodoMVC', () => {
         cy.get('@todo').find('label:visible').should('not.exist');
       });
 
-      it.skip('should focus the input field', function () {
+      it('should focus the input field', function () {
         cy.get('@todo').find('label').dblclick();
 
-        cy.focused().should('have.class', '.edit');
+        cy.get('@todo').find('.edit').should('have.focus');
       });
 
       it('should allow me to edit an item', () => {
