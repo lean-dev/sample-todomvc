@@ -120,6 +120,15 @@ context('Angular • TodoMVC', () => {
         cy.get('@todo').find('.edit').type('{selectall}{backspace}    Spaces    {enter}');
         cy.get('@todo').find('label').should('have.text', 'Spaces');
       });
+
+      it('should remove the item if an empty text string was entered', function () {
+        cy.createTodo(todoFixtures[0]);
+        cy.createTodo(todoFixtures[1]).as('todo');
+
+        cy.get('@todo').find('label').dblclick();
+        cy.get('@todo').find('.edit').clear().type('{enter}');
+        cy.get(selectors.todoItems).should('have.length', 1);
+      });
     });
   });
 });
