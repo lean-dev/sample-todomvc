@@ -18,15 +18,20 @@ export class StoreService {
     distinctUntilChanged()
   );
 
+  // Updater helper
+  private nextTodos(update: (todos: Todo[]) => Todo[]) {
+    this.todosSource.next(update(this.todosSource.value));
+  }
+
   // Actions
   createTodo(title: string) {
     const todo = { id: this.nextId++, title, completed: false };
-    this.todosSource.next([...this.todosSource.value, todo]);
+    this.nextTodos((todos) => [...todos, todo]);
   }
   setTodoCompleted(id: Todo['id'], completed: boolean) {
-    this.todosSource.next(this.todosSource.value.map((t) => (t.id !== id ? t : { ...t, completed })));
+    this.nextTodos((todos) => todos.map((t) => (t.id !== id ? t : { ...t, completed })));
   }
   deleteTodo(id: Todo['id']) {
-    this.todosSource.next(this.todosSource.value.filter((t) => t.id !== id));
+    this.nextTodos((todos) => todos.filter((t) => t.id !== id));
   }
 }
