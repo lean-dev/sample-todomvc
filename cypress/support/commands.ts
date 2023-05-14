@@ -44,7 +44,7 @@
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
-    createTodo(title: string): typeof createTodo;
+    createTodo: typeof createTodo;
   }
 }
 
@@ -66,7 +66,8 @@ function createTodo(title: string) {
   // in the todo list so we can
   // easily alias this in our tests
   // and set the $el so its highlighted
-  cy.get('.todo-list', { log: false })
+  return cy
+    .get('.todo-list', { log: false })
     .contains('li', title.trim(), { log: false })
     .then(($li) => {
       // set the $el for the command so
