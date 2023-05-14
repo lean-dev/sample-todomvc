@@ -64,5 +64,13 @@ context('Angular • TodoMVC', () => {
       cy.get('@newTodo').find('.toggle').should('not.be.checked');
       cy.get('@newTodo').should('not.have.class', 'completed');
     });
+
+    it('should allow me to delete an item', () => {
+      cy.createTodo(todoFixtures[0]).as('todo');
+      cy.createTodo(todoFixtures[1]);
+
+      cy.get('@todo').find('.destroy').click({ force: true });
+      cy.get(selectors.todoItems).should('have.length', 1);
+    });
   });
 });

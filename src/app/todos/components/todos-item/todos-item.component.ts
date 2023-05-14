@@ -17,4 +17,8 @@ export class TodosItemComponent {
   handleToggle() {
     this.storeSvc.setTodoCompleted(this.todo.id, !this.todo.completed);
   }
+
+  handleRemove() {
+    this.storeSvc.remove(this.todo.id);
+  }
 }

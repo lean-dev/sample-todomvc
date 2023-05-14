@@ -26,4 +26,7 @@ export class StoreService {
   setTodoCompleted(id: Todo['id'], completed: boolean) {
     this.todosSource.next(this.todosSource.value.map((t) => (t.id !== id ? t : { ...t, completed })));
   }
+  remove(id: Todo['id']) {
+    this.todosSource.next(this.todosSource.value.filter((t) => t.id !== id));
+  }
 }

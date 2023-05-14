@@ -4,7 +4,7 @@
   <div class="view">
     <input class="toggle" type="checkbox" [checked]="todo.completed" (change)="handleToggle()" />
     <label>{{ todo.title }}</label>
-    <button class="destroy"></button>
+    <button (click)="handleRemove()" class="destroy"></button>
   </div>
   <input class="edit" value="Create a TodoMVC template" />
 </li>
