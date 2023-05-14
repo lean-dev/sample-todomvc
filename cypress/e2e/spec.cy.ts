@@ -28,21 +28,22 @@ context('Angular • TodoMVC', () => {
     });
 
     it('should allow me to add todo items', () => {
-      cy.get(selectors.newTodo).type(`${todoFixtures[0]}{enter}`);
+      cy.createTodo(todoFixtures[0]);
       cy.contains(todoFixtures[0]);
-      cy.get(selectors.newTodo).type(`${todoFixtures[1]}{enter}`);
+      cy.createTodo(todoFixtures[1]);
       cy.contains(todoFixtures[1]);
       cy.get(selectors.todoItems).should('have.length', 2);
     });
 
     it('should trim then entered title', () => {
-      cy.get(selectors.newTodo).type(` ${todoFixtures[0]} {enter}`);
+      cy.createTodo(` ${todoFixtures[0]} `);
       cy.get(selectors.todoItems).first().find('label').should('have.text', todoFixtures[0]);
     });
 
     it('should not allow me to add empty todo items', () => {
-      cy.get(selectors.newTodo).type(`{enter}`);
-      cy.get(selectors.todoItems).should('have.length', 0);
+      cy.createTodo('First');
+      cy.get(selectors.newTodo).type('{enter}');
+      cy.get(selectors.todoItems).should('have.length', 1);
     });
   });
 });
