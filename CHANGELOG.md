@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.1.0...v0.2.0)
+
+
+### 🚀 Enhancements
+
+  - Add new todos ([15357a5](https://github.com/lean-ng/sample-todomvc/commit/15357a5))
+
+### 🩹 Fixes
+
+  - Trim entered title ([da8e30b](https://github.com/lean-ng/sample-todomvc/commit/da8e30b))
+  - Prevent adding empty items ([7254ded](https://github.com/lean-ng/sample-todomvc/commit/7254ded))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.1.0
 
 [compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.0.2...v0.1.0)
