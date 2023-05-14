@@ -46,4 +46,23 @@ context('Angular • TodoMVC', () => {
       cy.get(selectors.todoItems).should('have.length', 1);
     });
   });
+
+  describe('Item', () => {
+    it('should mark new todos not as completed', () => {
+      cy.createTodo('Sample').as('newTodo');
+      cy.get('@newTodo').find('.toggle').should('not.be.checked');
+      cy.get('@newTodo').should('not.have.class', 'completed');
+    });
+
+    it('should allow me to toggle the completed state', () => {
+      cy.createTodo('Sample').as('newTodo');
+      cy.get('@newTodo').find('.toggle').check();
+      cy.get('@newTodo').find('.toggle').should('be.checked');
+      cy.get('@newTodo').should('have.class', 'completed');
+
+      cy.get('@newTodo').find('.toggle').uncheck();
+      cy.get('@newTodo').find('.toggle').should('not.be.checked');
+      cy.get('@newTodo').should('not.have.class', 'completed');
+    });
+  });
 });

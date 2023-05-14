@@ -23,4 +23,7 @@ export class StoreService {
     const todo = { id: this.nextId++, title, completed: false };
     this.todosSource.next([...this.todosSource.value, todo]);
   }
+  setTodoCompleted(id: Todo['id'], completed: boolean) {
+    this.todosSource.next(this.todosSource.value.map((t) => (t.id !== id ? t : { ...t, completed })));
+  }
 }

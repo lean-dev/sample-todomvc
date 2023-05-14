@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Todo } from '../../model/todo.type';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'todos-item',
@@ -8,6 +9,12 @@ import { Todo } from '../../model/todo.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodosItemComponent {
+  storeSvc = inject(StoreService);
+
   @Input({ required: true })
   todo!: Todo;
+
+  handleToggle() {
+    this.storeSvc.setTodoCompleted(this.todo.id, !this.todo.completed);
+  }
 }
