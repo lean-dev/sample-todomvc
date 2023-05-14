@@ -1,8 +1,5 @@
 const selectors = {
-  mainSection: '.main',
-  toolbar: '.footer',
   newTodo: '.new-todo',
-  todoList: '.todo-list',
   todoItems: '.todo-list li',
 };
 
@@ -131,6 +128,46 @@ context('Angular • TodoMVC', () => {
         cy.get('@todo').find('label').should('have.text', todoFixtures[1]);
         cy.get(selectors.todoItems).should('have.length', 2);
       });
+    });
+  });
+
+  describe.only('Mark all as completed', () => {
+    beforeEach(() => {
+      cy.createTodo(todoFixtures[0]);
+      cy.createTodo(todoFixtures[1]);
+      cy.createTodo(todoFixtures[2]);
+      cy.get(selectors.todoItems).as('todos');
+      cy.get('.toggle-all').as('toggleAll');
+    });
+
+    it('should allow me to mark all items as completed', () => {
+      cy.get('@toggleAll').check();
+
+      cy.get('@todos').eq(0).should('have.class', 'completed');
+      cy.get('@todos').eq(1).should('have.class', 'completed');
+      cy.get('@todos').eq(2).should('have.class', 'completed');
+    });
+
+    it('should allow me to clear the complete state of all items', () => {
+      cy.get('@toggleAll').check();
+      cy.get('@toggleAll').uncheck();
+
+      cy.get('@todos').eq(0).should('not.have.class', 'completed');
+      cy.get('@todos').eq(1).should('not.have.class', 'completed');
+      cy.get('@todos').eq(2).should('not.have.class', 'completed');
+    });
+
+    it('complete all checkbox should update state when items are completed / cleared', function () {
+      cy.get('@toggleAll').should('not.be.checked');
+
+      cy.get('@toggleAll').check();
+      cy.get('@toggleAll').should('be.checked');
+
+      cy.get(selectors.todoItems).first().as('firstTodo').find('.toggle').uncheck();
+      cy.get('@toggleAll').should('not.be.checked');
+
+      cy.get('@firstTodo').find('.toggle').check();
+      cy.get('@toggleAll').should('be.checked');
     });
   });
 });

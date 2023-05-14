@@ -11,4 +11,9 @@ export class TodosMainComponent {
   private storeSvc = inject(StoreService);
 
   hasTodo$ = this.storeSvc.hasTodos$;
+  allTodosCompleted$ = this.storeSvc.allTodosCompleted$;
+
+  handleToggleAll(completed: boolean) {
+    this.storeSvc.setAllTodosCompleted(completed);
+  }
 }

@@ -18,6 +18,8 @@ export class StoreService {
     distinctUntilChanged()
   );
 
+  allTodosCompleted$ = this.todosSource.pipe(map((todos) => !todos.some((t) => !t.completed)));
+
   // Updater helper
   private nextTodos(update: (todos: Todo[]) => Todo[]) {
     this.todosSource.next(update(this.todosSource.value));
@@ -36,5 +38,8 @@ export class StoreService {
   }
   deleteTodo(id: Todo['id']) {
     this.nextTodos((todos) => todos.filter((t) => t.id !== id));
+  }
+  setAllTodosCompleted(completed: boolean) {
+    this.nextTodos((todos) => todos.map((t) => (t.completed === completed ? t : { ...t, completed })));
   }
 }

@@ -1,5 +1,12 @@
 <section *ngIf="hasTodo$ | async" class="main">
-  <input id="toggle-all" class="toggle-all" type="checkbox" />
+  <input
+    #fld
+    id="toggle-all"
+    class="toggle-all"
+    type="checkbox"
+    [checked]="allTodosCompleted$ | async"
+    (change)="handleToggleAll(fld.checked)"
+  />
   <label for="toggle-all">Mark all as complete</label>
   <todos-list />
 </section>
