@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.5.0
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.4.0...v0.5.0)
+
+
+### 🚀 Enhancements
+
+  - Implement local storage persistence ([3b4ec4c](https://github.com/lean-ng/sample-todomvc/commit/3b4ec4c))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.4.0
 
 [compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.3.0...v0.4.0)
