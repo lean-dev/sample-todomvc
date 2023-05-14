@@ -12,4 +12,9 @@ export class TodosToolbarComponent {
 
   hasTodo$ = this.storeSvc.hasTodos$;
   activeCount$ = this.storeSvc.activeCount$;
+  hasCompleted$ = this.storeSvc.hasCompleted$;
+
+  handleClearCompleted() {
+    this.storeSvc.clearCompletedTodos();
+  }
 }

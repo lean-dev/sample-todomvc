@@ -18,11 +18,14 @@ export class StoreService {
     distinctUntilChanged()
   );
 
+  // Missing distinctUntilChanged from here on!!
   allTodosCompleted$ = this.todosSource.pipe(map((todos) => !todos.some((t) => !t.completed)));
 
   activeCount$ = this.todosSource.pipe(
     map((todos) => todos.reduce((count, t) => (t.completed ? count : count + 1), 0))
   );
+
+  hasCompleted$ = this.todosSource.pipe(map((todos) => todos.some((t) => t.completed)));
 
   // Updater helper
   private nextTodos(update: (todos: Todo[]) => Todo[]) {
@@ -45,5 +48,8 @@ export class StoreService {
   }
   setAllTodosCompleted(completed: boolean) {
     this.nextTodos((todos) => todos.map((t) => (t.completed === completed ? t : { ...t, completed })));
+  }
+  clearCompletedTodos() {
+    this.nextTodos((todos) => todos.filter((t) => !t.completed));
   }
 }

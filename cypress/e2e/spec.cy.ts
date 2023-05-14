@@ -171,7 +171,7 @@ context('Angular • TodoMVC', () => {
     });
   });
 
-  describe.only('Counter', () => {
+  describe('Counter', () => {
     beforeEach(() => {
       cy.createTodo(todoFixtures[0]).as('firstTodo');
       cy.get('.todo-count').as('todoCount');
@@ -200,6 +200,38 @@ context('Angular • TodoMVC', () => {
       cy.get('@todoCount').contains('2 items left');
       cy.createTodo(todoFixtures[2]);
       cy.get('@todoCount').contains('3 items left');
+    });
+  });
+
+  describe.only('Clear completed button', () => {
+    beforeEach(() => {
+      cy.createTodo(todoFixtures[0]);
+      cy.createTodo(todoFixtures[1]);
+      cy.createTodo(todoFixtures[2]);
+      cy.createTodo(todoFixtures[3]);
+      cy.get(selectors.todoItems).as('todos');
+      cy.get('.clear-completed').as('clearCompleted');
+    });
+
+    it('should be visible if there are completed todos', () => {
+      cy.get('@todos').first().find('.toggle').check();
+      cy.get('@clearCompleted').should('be.visible');
+    });
+
+    it('should remove completed items when clicked', () => {
+      cy.get('@todos').eq(0).find('.toggle').check();
+      cy.get('@todos').eq(1).find('.toggle').check();
+      cy.get('@todos').eq(3).find('.toggle').check();
+      cy.get('@clearCompleted').click();
+      cy.get('@todos').should('have.length', 1);
+      cy.get('@todos').eq(0).should('contain', todoFixtures[2]);
+    });
+
+    it('should be hidden when there are no items that are completed', () => {
+      cy.get('@clearCompleted').should('not.be.visible');
+      cy.get('@todos').first().find('.toggle').check();
+      cy.get('@clearCompleted').should('be.visible').click();
+      cy.get('@clearCompleted').should('not.be.visible');
     });
   });
 });
