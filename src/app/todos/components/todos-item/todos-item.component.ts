@@ -30,13 +30,18 @@ export class TodosItemComponent {
   beginEdit() {
     this.editMode = true;
   }
-  commitEdit(title: string) {
-    const editedTitle = title.trim();
-    if (editedTitle) {
-      this.handleTitleUpdate(editedTitle);
-    } else {
-      this.handleDestroy();
-    }
+  rollbackEdit() {
     this.editMode = false;
+  }
+  commitEdit(title: string) {
+    if (this.editMode) {
+      const editedTitle = title.trim();
+      if (editedTitle) {
+        this.handleTitleUpdate(editedTitle);
+      } else {
+        this.handleDestroy();
+      }
+      this.editMode = false;
+    }
   }
 }

@@ -11,6 +11,7 @@
       #fld
       [value]="todo.title"
       (keyup.enter)="commitEdit(fld.value)"
+      (keyup.esc)="rollbackEdit()"
       (blur)="commitEdit(fld.value)"
     />
   </ng-template>
