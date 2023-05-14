@@ -1,17 +1,23 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, map } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, combineLatestWith, distinctUntilChanged, map } from 'rxjs';
 import { Todo } from '../model/todo.type';
+import { LocationService } from './location.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
+  locationSvc = inject(LocationService);
+
   private todosSource = new BehaviorSubject<Todo[]>([]);
 
   nextId = 1;
 
   // Public Getters
-  filteredTodos$ = this.todosSource.pipe();
+  filteredTodos$ = this.todosSource.pipe(
+    combineLatestWith(this.locationSvc.route$),
+    map(([todos, route]) => (route === 'all' ? todos : todos.filter((t) => t.completed === (route === 'completed'))))
+  );
 
   hasTodos$ = this.todosSource.pipe(
     map((todos) => todos.length > 0),

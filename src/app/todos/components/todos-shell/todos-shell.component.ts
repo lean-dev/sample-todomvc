@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { StoreService } from '../../services/store.service';
+import { fromEvent, tap } from 'rxjs';
 
 @Component({
   selector: 'todos-shell',

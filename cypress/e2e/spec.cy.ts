@@ -203,7 +203,7 @@ context('Angular • TodoMVC', () => {
     });
   });
 
-  describe.only('Clear completed button', () => {
+  describe('Clear completed button', () => {
     beforeEach(() => {
       cy.createTodo(todoFixtures[0]);
       cy.createTodo(todoFixtures[1]);
@@ -232,6 +232,66 @@ context('Angular • TodoMVC', () => {
       cy.get('@todos').first().find('.toggle').check();
       cy.get('@clearCompleted').should('be.visible').click();
       cy.get('@clearCompleted').should('not.be.visible');
+    });
+  });
+
+  describe('Routing', () => {
+    beforeEach(() => {
+      cy.createTodo(todoFixtures[0]);
+      cy.createTodo(todoFixtures[1]);
+      cy.createTodo(todoFixtures[2]);
+      cy.get(selectors.todoItems).as('todos');
+      cy.get('.filters').as('filters');
+    });
+
+    it('should allow me to display active items', () => {
+      cy.get('@todos').eq(1).find('.toggle').check();
+      cy.get('@filters').contains('Active').click();
+      cy.get(selectors.todoItems).should('have.length', 2).first().should('contain', todoFixtures[0]);
+      cy.get(selectors.todoItems).eq(1).should('contain', todoFixtures[2]);
+    });
+
+    it('should allow me to display completed items', () => {
+      cy.get('@todos').eq(1).find('.toggle').check();
+      cy.get('@filters').contains('Completed').click();
+      cy.get(selectors.todoItems).should('have.length', 1);
+    });
+
+    it('should allow me to display all items', () => {
+      cy.get('@todos').eq(1).find('.toggle').check();
+      cy.get('@filters').contains('Active').click();
+      cy.get('@filters').contains('Completed').click();
+      cy.get('@filters').contains('All').click();
+      cy.get(selectors.todoItems).should('have.length', 3);
+    });
+
+    it('should highlight the currently applied filter', () => {
+      cy.get('@filters').contains('All').should('have.class', 'selected');
+
+      cy.get('@filters').contains('Active').click();
+      cy.get('@filters').contains('Active').should('have.class', 'selected');
+
+      cy.get('@filters').contains('Completed').click();
+      cy.get('@filters').contains('Completed').should('have.class', 'selected');
+    });
+
+    it('should respect the back button', function () {
+      cy.get('@todos').first().find('.toggle').check();
+
+      cy.log('Showing all items');
+      cy.get('@filters').contains('All').click();
+      cy.log('Showing active items');
+      cy.get('@filters').contains('Active').click();
+      cy.log('Showing completed items');
+      cy.get('@filters').contains('Completed').click();
+
+      cy.log('Back to active items');
+      cy.go('back');
+      cy.get(selectors.todoItems).should('have.length', 2);
+
+      cy.log('Back to all items');
+      cy.go('back');
+      cy.get(selectors.todoItems).should('have.length', 3);
     });
   });
 });
