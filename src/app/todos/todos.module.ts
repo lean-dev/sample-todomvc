@@ -6,6 +6,7 @@ import { TodosMainComponent } from './components/todos-main/todos-main.component
 import { TodosToolbarComponent } from './components/todos-toolbar/todos-toolbar.component';
 import { TodosListComponent } from './components/todos-list/todos-list.component';
 import { TodosItemComponent } from './components/todos-item/todos-item.component';
+import { SetFocusedDirective } from './directives/set-focused.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TodosItemComponent } from './components/todos-item/todos-item.component
     TodosToolbarComponent,
     TodosListComponent,
     TodosItemComponent,
+    SetFocusedDirective,
   ],
   imports: [CommonModule],
   exports: [TodosShellComponent],

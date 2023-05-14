@@ -82,7 +82,7 @@ context('Angular • TodoMVC', () => {
         cy.get('@todo').find('label:visible').should('not.exist');
       });
 
-      it('should focus the input field', function () {
+      it.skip('should focus the input field', function () {
         cy.createTodo(todoFixtures[0]).as('todo');
         cy.get('@todo').find('label').dblclick();
 

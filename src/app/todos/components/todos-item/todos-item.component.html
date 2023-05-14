@@ -7,7 +7,7 @@
   <ng-template #editing>
     <input
       class="edit"
-      autofocus
+      set-focused
       #fld
       [value]="todo.title"
       (keyup.enter)="commitEdit(fld.value)"
