@@ -10,6 +10,7 @@ import { SetFocusedDirective } from './directives/set-focused.directive';
 import { PluralizePipe } from './pipes/pluralize.pipe';
 import { PERSISTENCE } from './services/persistence.interface';
 import { LocalPersistenceService } from './services/local-persistence.service';
+import { HttpPersistenceService } from './services/http-persistence.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,6 @@ import { LocalPersistenceService } from './services/local-persistence.service';
   ],
   imports: [CommonModule],
   exports: [TodosShellComponent],
-  providers: [{ provide: PERSISTENCE, useClass: LocalPersistenceService }],
+  providers: [{ provide: PERSISTENCE, useClass: HttpPersistenceService }],
 })
 export class TodosModule {}
