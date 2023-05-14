@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.4.0
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.3.0...v0.4.0)
+
+
+### 🚀 Enhancements
+
+  - Implement toggle all btn ([0bb1fef](https://github.com/lean-ng/sample-todomvc/commit/0bb1fef))
+  - Implement the counter ([16bb806](https://github.com/lean-ng/sample-todomvc/commit/16bb806))
+  - Implement clear completed btn ([168cac4](https://github.com/lean-ng/sample-todomvc/commit/168cac4))
+  - Implement routing ([5b1dd73](https://github.com/lean-ng/sample-todomvc/commit/5b1dd73))
+
+### 🩹 Fixes
+
+  - Focus testing now works. ([faa12a1](https://github.com/lean-ng/sample-todomvc/commit/faa12a1))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.3.0
 
 [compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.2.0...v0.3.0)
