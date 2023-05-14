@@ -2,16 +2,20 @@ import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, combineLatestWith, distinctUntilChanged, map } from 'rxjs';
 import { Todo } from '../model/todo.type';
 import { LocationService } from './location.service';
+import { LocalPersistenceService } from './local-persistence.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
   locationSvc = inject(LocationService);
+  persistenceSvc = inject(LocalPersistenceService);
 
   private todosSource = new BehaviorSubject<Todo[]>([]);
 
-  nextId = 1;
+  constructor() {
+    this.persistenceSvc.getAll().then((todos) => this.todosSource.next(todos));
+  }
 
   // Public Getters
   filteredTodos$ = this.todosSource.pipe(
@@ -39,23 +43,28 @@ export class StoreService {
   }
 
   // Actions
-  createTodo(title: string) {
-    const todo = { id: this.nextId++, title, completed: false };
+  async createTodo(title: string) {
+    const todo = await this.persistenceSvc.create(title);
     this.nextTodos((todos) => [...todos, todo]);
   }
-  setTodoCompleted(id: Todo['id'], completed: boolean) {
-    this.nextTodos((todos) => todos.map((t) => (t.id !== id ? t : { ...t, completed })));
+  async setTodoCompleted(id: Todo['id'], completed: boolean) {
+    const updatedTodo = await this.persistenceSvc.update(id, { completed });
+    this.nextTodos((todos) => todos.map((t) => (t.id !== id ? t : updatedTodo)));
   }
-  setTodoTitle(id: Todo['id'], title: string) {
-    this.nextTodos((todos) => todos.map((t) => (t.id !== id ? t : { ...t, title })));
+  async setTodoTitle(id: Todo['id'], title: string) {
+    const updatedTodo = await this.persistenceSvc.update(id, { title });
+    this.nextTodos((todos) => todos.map((t) => (t.id !== id ? t : updatedTodo)));
   }
-  deleteTodo(id: Todo['id']) {
+  async deleteTodo(id: Todo['id']) {
+    await this.persistenceSvc.remove(id);
     this.nextTodos((todos) => todos.filter((t) => t.id !== id));
   }
-  setAllTodosCompleted(completed: boolean) {
-    this.nextTodos((todos) => todos.map((t) => (t.completed === completed ? t : { ...t, completed })));
+  async setAllTodosCompleted(completed: boolean) {
+    await Promise.all(
+      this.todosSource.value.filter((t) => t.completed !== completed).map((t) => this.setTodoCompleted(t.id, completed))
+    );
   }
-  clearCompletedTodos() {
-    this.nextTodos((todos) => todos.filter((t) => !t.completed));
+  async clearCompletedTodos() {
+    await Promise.all(this.todosSource.value.filter((t) => t.completed).map((t) => this.deleteTodo(t.id)));
   }
 }

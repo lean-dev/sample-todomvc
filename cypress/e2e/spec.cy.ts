@@ -294,4 +294,31 @@ context('Angular • TodoMVC', () => {
       cy.get(selectors.todoItems).should('have.length', 3);
     });
   });
+
+  context('Local Storage Persistence', () => {
+    it('persists my changes', () => {
+      // Create four todos
+      cy.createTodo(todoFixtures[0]);
+      cy.createTodo(todoFixtures[1]);
+      cy.createTodo(todoFixtures[2]);
+      cy.createTodo(todoFixtures[3]);
+      cy.get(selectors.todoItems).as('todos');
+
+      // Toggle first
+      cy.get('@todos').eq(0).find('.toggle').check();
+
+      // Edit second
+      cy.get('@todos').eq(1).as('secondTodo').find('label').dblclick();
+      cy.get('@secondTodo').find('.edit').type(' with Cypress{enter}');
+
+      // Delete third
+      cy.get('@todos').eq(2).find('.destroy').click({ force: true });
+
+      // Reload and ensure everything is in place
+      cy.reload();
+      cy.get(selectors.todoItems).eq(0).should('have.class', 'completed');
+      cy.get(selectors.todoItems).eq(1).contains('with Cypress');
+      cy.get(selectors.todoItems).should('have.length', 3);
+    });
+  });
 });
