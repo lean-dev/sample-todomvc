@@ -12,6 +12,6 @@ export class TodosInputComponent {
 
   createTodo(title: string) {
     const trimmedTitle = title.trim();
-    this.create.emit(trimmedTitle);
+    trimmedTitle && this.create.emit(trimmedTitle);
   }
 }
