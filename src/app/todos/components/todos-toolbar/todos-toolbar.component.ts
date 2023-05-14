@@ -11,4 +11,5 @@ export class TodosToolbarComponent {
   private storeSvc = inject(StoreService);
 
   hasTodo$ = this.storeSvc.hasTodos$;
+  activeCount$ = this.storeSvc.activeCount$;
 }

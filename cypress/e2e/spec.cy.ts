@@ -131,7 +131,7 @@ context('Angular • TodoMVC', () => {
     });
   });
 
-  describe.only('Mark all as completed', () => {
+  describe('Mark all as completed', () => {
     beforeEach(() => {
       cy.createTodo(todoFixtures[0]);
       cy.createTodo(todoFixtures[1]);
@@ -168,6 +168,38 @@ context('Angular • TodoMVC', () => {
 
       cy.get('@firstTodo').find('.toggle').check();
       cy.get('@toggleAll').should('be.checked');
+    });
+  });
+
+  describe.only('Counter', () => {
+    beforeEach(() => {
+      cy.createTodo(todoFixtures[0]).as('firstTodo');
+      cy.get('.todo-count').as('todoCount');
+    });
+
+    it('should display the current number of todo items', function () {
+      cy.get('@todoCount').contains('1');
+      cy.createTodo(todoFixtures[1]).as('secondTodo');
+      cy.get('@todoCount').contains('2');
+      cy.createTodo(todoFixtures[2]).as('thirdTodo');
+      cy.get('@todoCount').contains('3');
+      cy.get('@firstTodo').find('.toggle').check();
+      cy.get('@todoCount').contains('2');
+      cy.get('@firstTodo').find('.destroy').click({ force: true });
+      cy.get('@todoCount').contains('2');
+      cy.get('@secondTodo').find('.destroy').click({ force: true });
+      cy.get('@todoCount').contains('1');
+    });
+
+    it('should pluralize the item-word', () => {
+      cy.get('@firstTodo').find('.toggle').check();
+      cy.get('@todoCount').contains('0 items left');
+      cy.get('@firstTodo').find('.toggle').uncheck();
+      cy.get('@todoCount').contains('1 item left');
+      cy.createTodo(todoFixtures[1]);
+      cy.get('@todoCount').contains('2 items left');
+      cy.createTodo(todoFixtures[2]);
+      cy.get('@todoCount').contains('3 items left');
     });
   });
 });

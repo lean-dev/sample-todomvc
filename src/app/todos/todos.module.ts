@@ -7,6 +7,7 @@ import { TodosToolbarComponent } from './components/todos-toolbar/todos-toolbar.
 import { TodosListComponent } from './components/todos-list/todos-list.component';
 import { TodosItemComponent } from './components/todos-item/todos-item.component';
 import { SetFocusedDirective } from './directives/set-focused.directive';
+import { PluralizePipe } from './pipes/pluralize.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SetFocusedDirective } from './directives/set-focused.directive';
     TodosListComponent,
     TodosItemComponent,
     SetFocusedDirective,
+    PluralizePipe,
   ],
   imports: [CommonModule],
   exports: [TodosShellComponent],
