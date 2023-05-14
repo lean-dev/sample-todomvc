@@ -3,13 +3,14 @@ import { BehaviorSubject, combineLatestWith, distinctUntilChanged, map } from 'r
 import { Todo } from '../model/todo.type';
 import { LocationService } from './location.service';
 import { LocalPersistenceService } from './local-persistence.service';
+import { PERSISTENCE } from './persistence.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
   locationSvc = inject(LocationService);
-  persistenceSvc = inject(LocalPersistenceService);
+  persistenceSvc = inject(PERSISTENCE);
 
   private todosSource = new BehaviorSubject<Todo[]>([]);
 

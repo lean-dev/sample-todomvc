@@ -8,6 +8,8 @@ import { TodosListComponent } from './components/todos-list/todos-list.component
 import { TodosItemComponent } from './components/todos-item/todos-item.component';
 import { SetFocusedDirective } from './directives/set-focused.directive';
 import { PluralizePipe } from './pipes/pluralize.pipe';
+import { PERSISTENCE } from './services/persistence.interface';
+import { LocalPersistenceService } from './services/local-persistence.service';
 
 @NgModule({
   declarations: [
@@ -22,5 +24,6 @@ import { PluralizePipe } from './pipes/pluralize.pipe';
   ],
   imports: [CommonModule],
   exports: [TodosShellComponent],
+  providers: [{ provide: PERSISTENCE, useClass: LocalPersistenceService }],
 })
 export class TodosModule {}
