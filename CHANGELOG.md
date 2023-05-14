@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.6.0
+
+[compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.5.0...v0.6.0)
+
+
+### 🚀 Enhancements
+
+  - Implement persistence API ([1bf55af](https://github.com/lean-ng/sample-todomvc/commit/1bf55af))
+  - Implement http based service and make it choosable ([579b6f5](https://github.com/lean-ng/sample-todomvc/commit/579b6f5))
+
+### 💅 Refactors
+
+  - Inject with token ([719637d](https://github.com/lean-ng/sample-todomvc/commit/719637d))
+
+### ❤️  Contributors
+
+- Micha Buchholz ([@lean-dev](http://github.com/lean-dev))
+
 ## v0.5.0
 
 [compare changes](https://github.com/lean-ng/sample-todomvc/compare/v0.4.0...v0.5.0)
