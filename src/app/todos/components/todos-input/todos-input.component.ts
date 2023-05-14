@@ -11,6 +11,7 @@ export class TodosInputComponent {
   create = new EventEmitter<string>();
 
   createTodo(title: string) {
-    this.create.emit(title);
+    const trimmedTitle = title.trim();
+    this.create.emit(trimmedTitle);
   }
 }

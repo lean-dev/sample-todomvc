@@ -34,5 +34,10 @@ context('Angular • TodoMVC', () => {
       cy.contains(todoFixtures[1]);
       cy.get(selectors.todoItems).should('have.length', 2);
     });
+
+    it('should trim then entered title', () => {
+      cy.get(selectors.newTodo).type(` ${todoFixtures[0]} {enter}`);
+      cy.get(selectors.todoItems).first().find('label').should('have.text', todoFixtures[0]);
+    });
   });
 });
