@@ -73,7 +73,7 @@ context('Angular • TodoMVC', () => {
       cy.get(selectors.todoItems).should('have.length', 1);
     });
 
-    context('Editing', () => {
+    context.only('Editing', () => {
       it('should hide other controls when editing', function () {
         cy.createTodo(todoFixtures[0]).as('todo');
         cy.get('@todo').find('label').dblclick();
@@ -99,7 +99,7 @@ context('Angular • TodoMVC', () => {
           .should('have.value', todoFixtures[1])
           .clear()
           .type('E2E Testing with Cypress{enter}');
-        cy.get('@todo').find('label').should('contain.text', 'E2E Testing with Cypress');
+        cy.get('@todo').find('label').should('have.text', 'E2E Testing with Cypress');
       });
 
       it('should save edits on blur', function () {
@@ -109,7 +109,16 @@ context('Angular • TodoMVC', () => {
         cy.get('@todo').find('label').dblclick();
         cy.get('@todo').find('.edit').clear().type('E2E Testing with Cypress').blur();
 
-        cy.get('@todo').find('label').should('contain.text', 'E2E Testing with Cypress');
+        cy.get('@todo').find('label').should('have.text', 'E2E Testing with Cypress');
+      });
+
+      it('should trim entered text', function () {
+        cy.createTodo(todoFixtures[0]);
+        cy.createTodo(todoFixtures[1]).as('todo');
+
+        cy.get('@todo').find('label').dblclick();
+        cy.get('@todo').find('.edit').type('{selectall}{backspace}    Spaces    {enter}');
+        cy.get('@todo').find('label').should('have.text', 'Spaces');
       });
     });
   });

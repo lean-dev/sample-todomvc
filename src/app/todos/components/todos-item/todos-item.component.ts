@@ -31,7 +31,7 @@ export class TodosItemComponent {
     this.editMode = true;
   }
   commitEdit(title: string) {
-    this.handleTitleUpdate(title);
+    this.handleTitleUpdate(title.trim());
     this.editMode = false;
   }
 }
