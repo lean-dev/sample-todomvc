@@ -1,3 +1,13 @@
+const selectors = {
+  mainSection: '.main',
+  toolbar: '.footer',
+  newTodo: '.new-todo',
+  todoList: '.todo-list',
+  todoItems: '.todo-list li',
+};
+
+const todoFixtures = ['Unit Testing', 'E2E Testing', 'Test Coverage', 'Continous Integration'];
+
 context('Angular • TodoMVC', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -9,6 +19,20 @@ context('Angular • TodoMVC', () => {
     });
     it('should hide the app footer aka toolbar', () => {
       cy.get('footer.footer:visible').should('not.exist');
+    });
+  });
+
+  describe('New Todo', () => {
+    it.skip('should focus the input field on page load', () => {
+      cy.focused().should('have.class', 'new-todo');
+    });
+
+    it('should create new items and append them to the list', () => {
+      cy.get(selectors.newTodo).type(`${todoFixtures[0]}{enter}`);
+      cy.contains(todoFixtures[0]);
+      cy.get(selectors.newTodo).type(`${todoFixtures[1]}{enter}`);
+      cy.contains(todoFixtures[1]);
+      cy.get(selectors.todoItems).should('have.length', 2);
     });
   });
 });

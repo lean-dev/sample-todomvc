@@ -8,9 +8,19 @@ import { Todo } from '../model/todo.type';
 export class StoreService {
   private todosSource = new BehaviorSubject<Todo[]>([]);
 
+  nextId = 1;
+
   // Public Getters
+  filteredTodos$ = this.todosSource.pipe();
+
   hasTodos$ = this.todosSource.pipe(
     map((todos) => todos.length > 0),
     distinctUntilChanged()
   );
+
+  // Actions
+  create(title: string) {
+    const todo = { id: this.nextId++, title, completed: false };
+    this.todosSource.next([...this.todosSource.value, todo]);
+  }
 }

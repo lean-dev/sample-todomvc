@@ -1,3 +1,3 @@
 <ul class="todo-list">
-  <todos-item />
+  <todos-item *ngFor="let t of todos$ | async; trackBy: trackByFn" [todo]="t" />
 </ul>
