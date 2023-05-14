@@ -6,6 +6,7 @@ import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '
 export class SetFocusedDirective implements OnChanges, OnInit {
   private isFocused = true;
 
+  // See: https://github.com/angular/angular/issues/14761
   @Input('set-focused')
   set setFocused(value: boolean | '') {
     this.isFocused = value === '' || value;
