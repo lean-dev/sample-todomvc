@@ -16,7 +16,9 @@ function generateId() {
   return nextId;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LocalPersistenceService implements Persistence {
   async getAll(): Promise<Todo[]> {
     return loadTodos();

@@ -11,6 +11,8 @@ import { PluralizePipe } from './pipes/pluralize.pipe';
 import { PERSISTENCE } from './services/persistence.interface';
 import { LocalPersistenceService } from './services/local-persistence.service';
 import { HttpPersistenceService } from './services/http-persistence.service';
+import { HttpClient } from '@angular/common/http';
+import { PersistenceSelectComponent } from './components/persistence-select/persistence-select.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +24,21 @@ import { HttpPersistenceService } from './services/http-persistence.service';
     TodosItemComponent,
     SetFocusedDirective,
     PluralizePipe,
+    PersistenceSelectComponent,
   ],
   imports: [CommonModule],
   exports: [TodosShellComponent],
-  providers: [{ provide: PERSISTENCE, useClass: HttpPersistenceService }],
+  providers: [
+    {
+      provide: PERSISTENCE,
+      useFactory: persistenceFactory,
+      deps: [HttpClient],
+    },
+  ],
 })
 export class TodosModule {}
+
+function persistenceFactory(http: HttpClient) {
+  const persistenceName = localStorage.getItem('todos-angular.persistence');
+  return persistenceName === 'http' ? new HttpPersistenceService(http) : new LocalPersistenceService();
+}
