@@ -72,5 +72,45 @@ context('Angular • TodoMVC', () => {
       cy.get('@todo').find('.destroy').click({ force: true });
       cy.get(selectors.todoItems).should('have.length', 1);
     });
+
+    context('Editing', () => {
+      it('should hide other controls when editing', function () {
+        cy.createTodo(todoFixtures[0]).as('todo');
+        cy.get('@todo').find('label').dblclick();
+
+        cy.get('@todo').find('.toggle:visible').should('not.exist');
+        cy.get('@todo').find('label:visible').should('not.exist');
+      });
+
+      it('should focus the input field', function () {
+        cy.createTodo(todoFixtures[0]).as('todo');
+        cy.get('@todo').find('label').dblclick();
+
+        cy.focused().should('have.class', '.edit');
+      });
+
+      it('should allow me to edit an item', () => {
+        cy.createTodo(todoFixtures[0]);
+        cy.createTodo(todoFixtures[1]).as('todo');
+
+        cy.get('@todo').find('label').dblclick();
+        cy.get('@todo')
+          .find('.edit')
+          .should('have.value', todoFixtures[1])
+          .clear()
+          .type('E2E Testing with Cypress{enter}');
+        cy.get('@todo').find('label').should('contain.text', 'E2E Testing with Cypress');
+      });
+
+      it('should save edits on blur', function () {
+        cy.createTodo(todoFixtures[0]);
+        cy.createTodo(todoFixtures[1]).as('todo');
+
+        cy.get('@todo').find('label').dblclick();
+        cy.get('@todo').find('.edit').clear().type('E2E Testing with Cypress').blur();
+
+        cy.get('@todo').find('label').should('contain.text', 'E2E Testing with Cypress');
+      });
+    });
   });
 });

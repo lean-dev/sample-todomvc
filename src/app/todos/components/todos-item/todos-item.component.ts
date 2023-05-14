@@ -18,7 +18,20 @@ export class TodosItemComponent {
     this.storeSvc.setTodoCompleted(this.todo.id, !this.todo.completed);
   }
 
+  handleTitleUpdate(title: string) {
+    this.storeSvc.setTodoTitle(this.todo.id, title);
+  }
+
   handleDestroy() {
     this.storeSvc.deleteTodo(this.todo.id);
+  }
+
+  editMode = false;
+  beginEdit() {
+    this.editMode = true;
+  }
+  commitEdit(title: string) {
+    this.handleTitleUpdate(title);
+    this.editMode = false;
   }
 }
